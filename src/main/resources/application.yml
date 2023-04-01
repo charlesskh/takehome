@@ -28,7 +28,7 @@ bucket4j:
           cache-key: "getRemoteAddr()"
           bandwidths:
             - capacity: 5
-              time: 1s
+              time: 1
               unit: seconds
         - execute-condition: "@securityService.currentUsername() != 'admin'" # strategy is only evaluate first. so the user must be logged in and user is not admin
           cache-key: "@securityService.currentUsername()"
