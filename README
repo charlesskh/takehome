@@ -3,3 +3,10 @@ A in memory user is created for testing purpose (rate limit for the authorized u
 The user information is as follow (Basic Auth):
 username: user
 password: password
+
+To build the docker image, please run as follow
+1. gradlew bootJar
+2. docker build -t takehome:0.0.1 .
+3. docker run --publish 8080:8080 takehome:0.0.1
+
+(P.S. I tried on Windows that the distributionUrl in gradle-wrapper.properties need to change to version 8.0.2 for Spring 3.0.5)
