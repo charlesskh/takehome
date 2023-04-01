@@ -1,0 +1,44 @@
+logging:
+  level:
+    com.giffing.bucket4j: debug
+
+spring:
+  application:
+    name: "takehome"
+  cache:
+    jcache:
+      provider: com.github.benmanes.caffeine.jcache.spi.CaffeineCachingProvider
+    cache-names:
+      - rate-limit-buckets
+    caffeine:
+      spec: maximumSize=100000,expireAfterAccess=3600s
+
+takehome:
+  trevorblades:
+    url: https://countries.trevorblades.com
+
+bucket4j:
+  enabled: true
+  filters:
+    - cache-name: rate-limit-buckets
+      url: /api/v1/countries/sameContinent
+      filter-order: "1"
+      rate-limits:
+        - execute-condition: "@securityService.notSignedIn()" # only for not logged in users
+          cache-key: "getRemoteAddr()"
+          bandwidths:
+            - capacity: 1
+              time: 10
+              unit: seconds
+        - execute-condition: "@securityService.currentUsername() != 'admin'" # strategy is only evaluate first. so the user must be logged in and user is not admin
+          cache-key: "@securityService.currentUsername()"
+          bandwidths:
+            - capacity: 5
+              time: 1
+              unit: minutes
+        - execute-condition: "@securityService.currentUsername() == 'admin'"  # user is admin
+          cache-key: "@securityService.currentUsername()"
+          bandwidths:
+            - capacity: 1000000000
+              time: 1
+              unit: minutes

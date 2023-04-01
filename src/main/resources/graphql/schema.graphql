@@ -1,0 +1,4 @@
+# Query root
+type Query {
+  countries(smpStore:String!, smpTill:String!, smpTillSeqNumber:String!): Order
+}

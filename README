@@ -1,0 +1,5 @@
+To accomplish the bonus task, spring security is imported
+A in memory user is created for testing purpose (rate limit for the authorized user and unauthorized user)
+The user information is as follow (Basic Auth):
+username: user
+password: password
