@@ -10,3 +10,5 @@ To build the docker image, please run as follow
 3. docker run --publish 8080:8080 takehome:0.0.1
 
 (P.S. I tried on Windows that the distributionUrl in gradle-wrapper.properties need to change to version 8.0.2 for Spring 3.0.5)
+
+Rest API: [GET] http://localhost:8080/api/v1/countries/sameContinent?countries=CA,US
