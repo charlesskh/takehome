@@ -30,11 +30,10 @@ public class DefaultCountryFacade implements CountryFacade {
         for(Map.Entry<String, ContinentData> entry : map.entrySet()){
             ContinentData continentData = entry.getValue();
             String continentCode = continentData.getCode();
-            if(res.containsKey(continentCode)){
-                res.get(continentCode).getOtherCountries().remove(entry.getKey());
-            } else {
+            if(!res.containsKey(continentCode)) {
                 res.put(continentCode, countryConversionService.convert(continentData, ContinentDTO.class));
             }
+            res.get(continentCode).getOtherCountries().remove(entry.getKey());
             res.get(continentCode).getCountries().add(entry.getKey());
         }
         return new ArrayList<>(res.values());
